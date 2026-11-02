@@ -1,27 +1,20 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import {
   Sparkles,
   ArrowRight,
   Clock,
-  User,
   Calendar,
-  Bookmark,
-  Share2,
   X,
   ExternalLink,
-  ChevronRight,
-  TrendingUp,
-  Tag,
   CheckCircle2,
-  Terminal,
-  FileText,
   Search,
 } from "lucide-react";
 import { useReducedMotion } from "@/providers/ReducedMotionProvider";
-import { BLOG_POSTS, type BlogPost } from "@/components/BlogSection";
+import { usePageMetadata } from "@/lib/head";
+import { BLOG_POSTS } from "@/components/BlogSection";
 
 const CATEGORIES = [
   "All Publications",
@@ -32,9 +25,13 @@ const CATEGORIES = [
 ] as const;
 
 export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => void }) {
+  usePageMetadata({
+    title: "Engineering Blog & Technical Research",
+    description: "Peer-reviewed architectural briefs, distributed systems post-mortems, and engineering benchmarks authored directly by VRPI principal engineers.",
+  });
+
   const [selectedCategory, setSelectedCategory] = useState<string>("All Publications");
   const [searchQuery, setSearchQuery] = useState("");
-  const [readingPost, setReadingPost] = useState<BlogPost | null>(null);
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -67,7 +64,7 @@ export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => vo
   };
 
   return (
-    <div className="w-full bg-white text-slate-900 min-h-screen pt-28 sm:pt-32 pb-12 font-sans relative">
+    <div className="w-full bg-white text-slate-900 min-h-screen pt-28 sm:pt-32 pb-16 font-sans relative">
       {/* Subtle warm ambient background highlights */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-1/4 -left-32 w-[600px] h-[600px] bg-[#FA6400]/[0.035] rounded-full blur-[160px]" />
@@ -78,7 +75,7 @@ export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => vo
         {/* ========================================================= */}
         {/* BLOG HERO BANNER & BREADCRUMB                             */}
         {/* ========================================================= */}
-        <div className="mb-4 sm:mb-5">
+        <div className="mb-6 sm:mb-8">
           <div className="flex items-center gap-2 mb-3 sm:mb-4 text-xs font-mono text-slate-500">
             <button
               type="button"
@@ -92,7 +89,7 @@ export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => vo
             <span className="text-[#E65100] font-semibold">Engineering Blog &amp; Publications</span>
           </div>
 
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-4 sm:pb-5 border-b border-slate-200">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 sm:pb-5 border-b border-slate-200">
             <div className="max-w-3xl">
               <div className="flex items-center gap-3 sm:gap-4 mb-1.5">
                 <div className="w-1.5 sm:w-2 h-8 sm:h-10 rounded-full bg-gradient-to-b from-[#FA6400] to-[#E60038] shadow-[0_0_12px_rgba(250,100,0,0.3)] shrink-0" />
@@ -106,23 +103,23 @@ export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => vo
                 </div>
               </div>
               <p className="text-xs sm:text-sm text-slate-600 mt-1.5 sm:mt-2 leading-relaxed font-normal pl-4 sm:pl-5">
-                Technical research, distributed systems post-mortems, and architectural benchmarks authored directly by our principal engineers and researchers.
+                Technical research, distributed systems post-mortems, and architectural benchmarks authored directly by our principal engineers and researchers. Click any publication to read in a dedicated page.
               </p>
             </div>
 
             {/* Quick Publication Stats */}
-            <div className="flex lg:flex-col gap-3 sm:gap-3 bg-slate-50 border border-slate-200 p-3 sm:p-3.5 rounded-2xl shrink-0 shadow-sm">
+            <div className="flex sm:flex-col gap-2.5 sm:gap-3 bg-slate-50 border border-slate-200 p-2.5 sm:p-3.5 rounded-2xl shrink-0 shadow-sm">
               <div>
-                <span className="text-lg sm:text-xl font-extrabold text-slate-950 font-['Space_Grotesk'] block leading-none">
+                <span className="text-base sm:text-xl font-extrabold text-slate-950 font-['Space_Grotesk'] block leading-none">
                   10,000+
                 </span>
-                <span className="text-[10px] sm:text-xs font-mono text-slate-500 block mt-1">Subscribed Engineers</span>
+                <span className="text-[10px] sm:text-xs font-mono text-slate-500 block mt-0.5 sm:mt-1">Subscribed Engineers</span>
               </div>
-              <div className="lg:border-t lg:border-slate-200 lg:pt-2">
-                <span className="text-lg sm:text-xl font-extrabold text-[#E65100] font-['Space_Grotesk'] block leading-none">
+              <div className="pl-2.5 sm:pl-0 border-l sm:border-l-0 sm:border-t border-slate-200 sm:pt-2">
+                <span className="text-base sm:text-xl font-extrabold text-[#E65100] font-['Space_Grotesk'] block leading-none">
                   Fortnightly
                 </span>
-                <span className="text-[10px] sm:text-xs font-mono text-slate-500 block mt-1">Production Dispatches</span>
+                <span className="text-[10px] sm:text-xs font-mono text-slate-500 block mt-0.5 sm:mt-1">Production Dispatches</span>
               </div>
             </div>
           </div>
@@ -131,7 +128,7 @@ export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => vo
         {/* ========================================================= */}
         {/* INTERACTIVE CATEGORY TABS & SEARCH                        */}
         {/* ========================================================= */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-4 sm:mb-6">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-6 sm:mb-8">
           <div className="flex items-center gap-2 overflow-x-auto pb-1 max-w-full no-scrollbar">
             {CATEGORIES.map((cat) => {
               const isActive = selectedCategory === cat;
@@ -173,43 +170,48 @@ export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => vo
         </div>
 
         {/* ========================================================= */}
-        {/* FEATURED FLAGSHIP ARTICLE (Bento Top)                     */}
+        {/* FEATURED FLAGSHIP ARTICLE (Exact Same View Mobile/Desktop)*/}
         {/* ========================================================= */}
         {featuredPost && (
-          <motion.article
+          <motion.a
+            href={`#/blog/${featuredPost.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
             initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
             whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            onClick={() => setReadingPost(featuredPost)}
-            className="group relative rounded-3xl overflow-hidden border border-slate-200 bg-white hover:border-slate-300 transition-all duration-500 shadow-xl hover:shadow-2xl mb-8 cursor-pointer"
+            className="group relative block rounded-3xl overflow-hidden border border-slate-200 bg-white hover:border-slate-300 transition-all duration-500 shadow-xl hover:shadow-2xl mb-8 cursor-pointer no-underline text-inherit"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[380px] lg:min-h-[420px]">
-              {/* Media */}
-              <div className="lg:col-span-5 relative overflow-hidden min-h-[240px] lg:min-h-full">
+            {/* Main split grid: Media on left, Editorial on right across both mobile and desktop */}
+            <div className="grid grid-cols-12 min-h-[220px] sm:min-h-[340px] lg:min-h-[420px]">
+              {/* Media Column (Left) */}
+              <div className="col-span-12 sm:col-span-5 relative overflow-hidden min-h-[190px] sm:min-h-full bg-slate-950">
                 <img
                   src={featuredPost.image}
-                  alt={featuredPost.title}
+                  alt={`Technical diagram and architecture schematic for ${featuredPost.title}`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/80 via-black/30 to-transparent" />
-                <div className="absolute top-4 left-4 flex items-center gap-2">
-                  <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold tracking-wider uppercase bg-[#FA6400] text-white shadow-lg">
+                <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-black/80 via-black/30 to-transparent" />
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 flex items-center gap-2">
+                  <span className="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-mono font-bold tracking-wider uppercase bg-[#FA6400] text-white shadow-lg">
                     FEATURED PUBLICATION
                   </span>
                 </div>
                 {featuredPost.metricsHighlight && (
-                  <div className="absolute bottom-4 left-4 right-4 p-3 rounded-2xl bg-slate-950/85 backdrop-blur-md border border-white/15 text-xs font-mono text-emerald-400 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span>{featuredPost.metricsHighlight}</span>
+                  <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-950/85 backdrop-blur-md border border-white/15 text-[11px] sm:text-xs font-mono text-emerald-400 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                    <span className="truncate">{featuredPost.metricsHighlight}</span>
                   </div>
                 )}
               </div>
 
-              {/* Editorial */}
-              <div className="lg:col-span-7 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+              {/* Editorial Column (Right) */}
+              <div className="col-span-12 sm:col-span-7 p-4 sm:p-6 lg:p-10 flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-3 text-xs font-mono text-slate-500 mb-3">
+                  <div className="flex items-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-mono text-slate-500 mb-2 sm:mb-3">
                     <span className="text-[#E65100] font-bold">{featuredPost.category}</span>
                     <span>•</span>
                     <span className="flex items-center gap-1">
@@ -223,19 +225,19 @@ export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => vo
                     </span>
                   </div>
 
-                  <h2 className="text-2xl sm:text-3xl font-bold font-['Space_Grotesk'] text-slate-950 group-hover:text-[#FA6400] transition-colors leading-tight mb-3">
+                  <h2 className="text-lg sm:text-2xl lg:text-3xl font-bold font-['Space_Grotesk'] text-slate-950 group-hover:text-[#FA6400] transition-colors leading-snug sm:leading-tight mb-2 sm:mb-3">
                     {featuredPost.title}
                   </h2>
 
-                  <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6 font-normal">
+                  <p className="text-xs sm:text-sm lg:text-base text-slate-600 leading-relaxed mb-4 sm:mb-6 font-normal">
                     {featuredPost.summary}
                   </p>
 
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
                     {featuredPost.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-slate-100 border border-slate-200 text-slate-700"
+                        className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] font-mono bg-slate-100 border border-slate-200 text-slate-700"
                       >
                         #{tag}
                       </span>
@@ -243,40 +245,32 @@ export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => vo
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-5 border-t border-slate-200">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={featuredPost.author.avatar}
-                      alt={featuredPost.author.name}
-                      className="w-10 h-10 rounded-full object-cover border border-slate-200"
-                    />
-                    <div>
-                      <span className="block text-sm font-semibold text-slate-900">
-                        {featuredPost.author.name}
-                      </span>
-                      <span className="block text-xs font-mono text-slate-500">
-                        {featuredPost.author.role}
-                      </span>
-                    </div>
+                <div className="flex items-center justify-between pt-3.5 sm:pt-5 border-t border-slate-200">
+                  <div className="flex items-center gap-2 text-[11px] sm:text-xs font-mono text-slate-500">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                    <span className="font-semibold text-slate-800">VRPI Engineering Publication</span>
                   </div>
 
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 group-hover:bg-slate-950 text-slate-800 group-hover:text-white text-xs font-mono font-semibold tracking-wider transition-all duration-300 shadow-sm">
-                    <span>READ BRIEF</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-100 group-hover:bg-slate-950 text-slate-800 group-hover:text-white text-[11px] sm:text-xs font-mono font-semibold tracking-wider transition-all duration-300 shadow-sm shrink-0">
+                    <span>OPEN IN NEW PAGE</span>
+                    <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </div>
                 </div>
               </div>
             </div>
-          </motion.article>
+          </motion.a>
         )}
 
         {/* ========================================================= */}
-        {/* SECONDARY ARTICLE GRID (3-Column Layout)                  */}
+        {/* SECONDARY ARTICLE CARDS (Side-By-Side Row on Mobile & Grid on Desktop) */}
         {/* ========================================================= */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="flex overflow-x-auto pb-4 gap-4 sm:gap-6 mb-16 snap-x snap-mandatory lg:grid lg:grid-cols-3 no-scrollbar">
           {gridPosts.map((post, idx) => (
-            <motion.article
+            <motion.a
               key={post.id}
+              href={`#/blog/${post.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
               whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
@@ -285,19 +279,21 @@ export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => vo
                 delay: idx * 0.1,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              onClick={() => setReadingPost(post)}
-              className="group flex flex-col justify-between rounded-3xl overflow-hidden border border-slate-200 bg-white hover:border-slate-300 hover:shadow-xl transition-all duration-300 shadow-md cursor-pointer"
+              className="w-[85vw] max-w-[340px] sm:w-[320px] lg:w-auto shrink-0 snap-start group flex flex-col justify-between rounded-3xl overflow-hidden border border-slate-200 bg-white hover:border-slate-300 hover:shadow-xl transition-all duration-300 shadow-md cursor-pointer block no-underline text-inherit"
             >
-              <div className="relative aspect-[16/9] overflow-hidden">
+              <div className="relative aspect-[16/9] overflow-hidden bg-slate-950">
                 <img
                   src={post.image}
-                  alt={post.title}
+                  alt={`Architecture overview visual for ${post.title}`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-mono uppercase tracking-wider bg-slate-950/80 backdrop-blur-md border border-white/10 text-white font-medium">
                   {post.category}
                 </span>
+
                 {post.metricsHighlight && (
                   <span className="absolute bottom-2 right-3 text-[10px] font-mono text-emerald-300 bg-black/70 px-2 py-0.5 rounded border border-white/15">
                     {post.metricsHighlight.split("•")[0]}
@@ -305,7 +301,7 @@ export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => vo
                 )}
               </div>
 
-              <div className="p-6 flex-1 flex flex-col justify-between">
+              <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 text-xs font-mono text-slate-500 mb-2">
                     <Clock className="w-3 h-3" />
@@ -314,7 +310,7 @@ export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => vo
                     <span>{post.publishDate}</span>
                   </div>
 
-                  <h3 className="text-lg font-bold font-['Space_Grotesk'] text-slate-950 group-hover:text-[#FA6400] transition-colors line-clamp-2 leading-snug mb-2.5">
+                  <h3 className="text-base sm:text-lg font-bold font-['Space_Grotesk'] text-slate-950 group-hover:text-[#FA6400] transition-colors line-clamp-2 leading-snug mb-2.5">
                     {post.title}
                   </h3>
 
@@ -324,30 +320,24 @@ export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => vo
                 </div>
 
                 <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <img
-                      src={post.author.avatar}
-                      alt={post.author.name}
-                      className="w-7 h-7 rounded-full object-cover border border-slate-200"
-                    />
-                    <span className="text-xs font-medium text-slate-700">
-                      {post.author.name}
-                    </span>
-                  </div>
+                  <span className="text-xs font-mono text-slate-500">
+                    VRPI Systems Research
+                  </span>
 
-                  <div className="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-slate-950 text-slate-700 group-hover:text-white flex items-center justify-center transition-all shadow-sm">
-                    <ArrowRight className="w-3.5 h-3.5" />
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 group-hover:bg-slate-950 text-slate-700 group-hover:text-white transition-all shadow-sm text-xs font-mono">
+                    <span>Open</span>
+                    <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </div>
                 </div>
               </div>
-            </motion.article>
+            </motion.a>
           ))}
         </div>
 
         {/* ========================================================= */}
         {/* ENGINEERING DISPATCH NEWSLETTER STRIP                     */}
         {/* ========================================================= */}
-        <div className="relative rounded-3xl overflow-hidden border border-slate-200 bg-slate-50 p-6 sm:p-8 lg:p-10 shadow-lg flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div className="relative rounded-3xl overflow-hidden border border-slate-200 bg-slate-50 p-5 sm:p-8 lg:p-10 shadow-lg flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="max-w-xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-mono text-[#FA6400] font-bold mb-3 shadow-sm">
               <Sparkles className="w-3.5 h-3.5 text-[#FA6400]" />
@@ -361,7 +351,7 @@ export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => vo
             </p>
           </div>
 
-          <div className="w-full lg:w-auto min-w-[320px]">
+          <div className="w-full lg:w-auto min-w-[280px] sm:min-w-[320px]">
             {newsletterSubscribed ? (
               <div className="flex items-center gap-2.5 p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-mono">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
@@ -388,125 +378,6 @@ export default function BlogPage({ onNavigateHome }: { onNavigateHome?: () => vo
           </div>
         </div>
       </div>
-
-      {/* ========================================================= */}
-      {/* INTERACTIVE FULL-ARTICLE READER MODAL                     */}
-      {/* ========================================================= */}
-      <AnimatePresence>
-        {readingPost && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-md overflow-y-auto">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.94, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.94, y: 20 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="relative w-full max-w-3xl bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-2xl my-auto max-h-[90vh] overflow-y-auto text-slate-800"
-              role="dialog"
-              aria-modal="true"
-            >
-              <button
-                type="button"
-                onClick={() => setReadingPost(null)}
-                className="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-all cursor-pointer z-20"
-                aria-label="Close article modal"
-              >
-                <X className="w-4 h-4" />
-              </button>
-
-              <div className="flex items-center gap-3 text-xs font-mono text-slate-500 mb-3">
-                <span className="px-2.5 py-1 rounded-md bg-orange-50 border border-orange-200 text-[#FA6400] font-semibold">
-                  {readingPost.category}
-                </span>
-                <span>•</span>
-                <span>{readingPost.readTime}</span>
-                <span>•</span>
-                <span>{readingPost.publishDate}</span>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-['Space_Grotesk'] text-slate-950 leading-tight mb-4">
-                {readingPost.title}
-              </h2>
-
-              <div className="flex items-center gap-3.5 pb-6 mb-6 border-b border-slate-200">
-                <img
-                  src={readingPost.author.avatar}
-                  alt={readingPost.author.name}
-                  className="w-12 h-12 rounded-full object-cover border border-slate-200"
-                />
-                <div>
-                  <div className="text-sm font-bold text-slate-900">
-                    {readingPost.author.name}
-                  </div>
-                  <div className="text-xs font-mono text-slate-500">
-                    {readingPost.author.role}
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative rounded-2xl overflow-hidden aspect-[16/8] mb-6 border border-slate-200 shadow-sm">
-                <img
-                  src={readingPost.image}
-                  alt={readingPost.title}
-                  className="w-full h-full object-cover"
-                />
-                {readingPost.metricsHighlight && (
-                  <div className="absolute bottom-3 left-3 px-3 py-1 rounded-lg bg-black/80 backdrop-blur-md border border-white/20 text-xs font-mono text-emerald-400">
-                    {readingPost.metricsHighlight}
-                  </div>
-                )}
-              </div>
-
-              <div className="space-y-5 text-sm sm:text-base leading-relaxed text-slate-700">
-                <p className="text-base sm:text-lg text-slate-900 font-medium leading-relaxed">
-                  {readingPost.content.lead}
-                </p>
-
-                <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-                  <span className="font-mono text-xs uppercase tracking-wider text-[#E65100] font-bold block">
-                    KEY ARCHITECTURAL TAKEAWAYS
-                  </span>
-                  <ul className="space-y-2.5">
-                    {readingPost.content.keyTakeaways.map((takeaway, tIdx) => (
-                      <li key={tIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>{takeaway}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="p-4 rounded-xl bg-slate-900 text-xs font-mono text-cyan-300">
-                  <span className="text-slate-400 block mb-1">SYSTEM TOPOLOGY SPECIFICATION:</span>
-                  {readingPost.content.architectureNote}
-                </div>
-
-                <p className="pt-2 text-slate-700">{readingPost.content.conclusion}</p>
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="flex flex-wrap gap-2">
-                  {readingPost.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-100 text-slate-600 border border-slate-200"
-                    >
-                      #{t}
-                    </span>
-                  ))}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setReadingPost(null)}
-                  className="px-5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-mono cursor-pointer shadow-sm"
-                >
-                  Close
-                </button>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

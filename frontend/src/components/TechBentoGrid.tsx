@@ -443,6 +443,7 @@ export default function TechBentoGrid() {
               alt="Hyperscale Cloud & Edge Datacenter"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-108"
               loading="lazy"
+              decoding="async"
             />
 
             {/* Cinematic Dark Gradient Overlay */}
@@ -508,7 +509,9 @@ export default function TechBentoGrid() {
               <div className="w-full aspect-[16/8] rounded-2xl overflow-hidden border border-white/10 mb-5 relative">
                 <img
                   src={selectedCard.image}
-                  alt={selectedCard.title}
+                  alt={`Detailed view of ${selectedCard.title}`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-md text-[10px] font-mono font-bold tracking-wider text-cyan-300 uppercase">

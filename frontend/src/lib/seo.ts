@@ -4,13 +4,16 @@ export const siteConfig = {
   description:
     "We turn complexity into working software. Full-stack digital engineering partner building intelligent digital products, scalable software platforms, and cloud infrastructure.",
   url: "https://vrpisc.com",
-  ogImage: "https://vrpisc.com/og.png",
+  ogImage: "https://vrpisc.com/og-image.png",
   twitterHandle: "@vrpitech",
   foundingYear: 2021,
   contact: {
     email: "info@vrpigroup.co.in",
     sales: "info@vrpigroup.co.in",
-    address: "2/27/163, Gandhi Nagar Street, Near Jammi Chettu, Wanaparthy, Telangana 509103, India",
+    registeredAddress: "Door No: 2-27-163, Gandhi Nagar, Near Jammichettu, Wanaparthy, Telangana 509103, India",
+    techCampus: "8th Floor (B-Block), Meenakshi Tech Park, Phase-2, Gachibowli, Hyderabad, Telangana 500032, India",
+    usaLiaison: "5 Greentree Center, Door No: 525, Route 73, STE 104, Marlton, New Jersey, USA 08053",
+    phone: "+91 8790946714",
   },
   links: {
     github: "https://github.com/vrpi-tech",

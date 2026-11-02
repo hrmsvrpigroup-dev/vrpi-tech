@@ -23,6 +23,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { useReducedMotion } from "@/providers/ReducedMotionProvider";
+import { usePageMetadata } from "@/lib/head";
 
 interface LeaderProfile {
   name: string;
@@ -94,6 +95,11 @@ const MILESTONES = [
 ];
 
 export default function AboutPage({ onNavigateHome }: { onNavigateHome?: () => void }) {
+  usePageMetadata({
+    title: "About Us & Engineering Leadership",
+    description: "Learn about VRPI Tech Solutions, our principal engineering fellows, ISO/IEC certified governance, global campuses, and culture of technical rigor.",
+  });
+
   const [activeTab, setActiveTab] = useState<"vision" | "governance" | "compliance">("vision");
   const [isCharterOpen, setIsCharterOpen] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -190,6 +196,8 @@ export default function AboutPage({ onNavigateHome }: { onNavigateHome?: () => v
                 <img
                   src="/images/about-team.jpg"
                   alt="VR PI Tech Solutions Executive Leadership Team"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full aspect-[4/3] sm:aspect-[1.15/1] object-cover object-top transition-transform duration-700 group-hover:scale-102"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none" />

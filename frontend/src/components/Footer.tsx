@@ -38,7 +38,11 @@ export default function Footer() {
               <a href="#hero" className="inline-flex items-center gap-3 group mb-3 focus:outline-none">
                 <img
                   src="/vrpi-logo.png"
-                  alt="VRPI Logo"
+                  alt="VRPI Tech Solutions Enterprise Logo"
+                  width="160"
+                  height="40"
+                  loading="lazy"
+                  decoding="async"
                   className="h-8 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
                 />
                 <div className="flex flex-col">
@@ -252,6 +256,14 @@ export default function Footer() {
             <span>© 2026 VRPI TECH SOLUTIONS PRIVATE LIMITED.</span>
             <span className="hidden sm:inline text-slate-500">·</span>
             <span className="text-slate-400">ALL RIGHTS RESERVED.</span>
+            <span className="hidden sm:inline text-slate-500">·</span>
+            <a href="#/privacy" className="text-slate-300 hover:text-[#FA6400] transition-colors underline underline-offset-2">
+              Privacy Policy
+            </a>
+            <span className="text-slate-500">·</span>
+            <a href="#/terms" className="text-slate-300 hover:text-[#FA6400] transition-colors underline underline-offset-2">
+              Terms &amp; Conditions
+            </a>
           </div>
 
           <div className="flex items-center gap-4 sm:gap-6">

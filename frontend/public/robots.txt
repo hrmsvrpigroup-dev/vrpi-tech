@@ -1,0 +1,13 @@
+# Production Robots Configuration - VRPI TECH SOLUTIONS
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*.json$
+
+# Crawl Delay
+Crawl-delay: 1
+
+# Host & Sitemap Declaration
+Host: https://vrpisc.com
+Sitemap: https://vrpisc.com/sitemap.xml

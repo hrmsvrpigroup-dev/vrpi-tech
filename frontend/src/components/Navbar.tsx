@@ -3,7 +3,16 @@
 import React, { useState, useEffect } from "react";
 import { ArrowUpRight, Compass, Sparkles } from "lucide-react";
 
-export type AppPage = "home" | "services" | "blog" | "about" | "contact";
+export type AppPage =
+  | "home"
+  | "services"
+  | "blog"
+  | "about"
+  | "contact"
+  | "thank-you"
+  | "privacy"
+  | "terms"
+  | "404";
 
 interface NavbarProps {
   currentPage?: AppPage;
@@ -70,7 +79,10 @@ export default function Navbar({ currentPage = "home", onNavigate }: NavbarProps
           >
             <img
               src="/vrpi-logo.png"
-              alt="VRPI Logo"
+              alt="VRPI Tech Solutions Enterprise Logo"
+              width="160"
+              height="40"
+              decoding="async"
               className="h-7 sm:h-9 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
             />
           </a>

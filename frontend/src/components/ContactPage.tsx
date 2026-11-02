@@ -31,6 +31,8 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { useReducedMotion } from "@/providers/ReducedMotionProvider";
+import { usePageMetadata } from "@/lib/head";
+import { trackEvent } from "@/lib/analytics";
 
 const contactSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters"),
@@ -108,6 +110,11 @@ const GLOBAL_HUBS = [
 ];
 
 export default function ContactPage({ onNavigateHome }: { onNavigateHome?: () => void }) {
+  usePageMetadata({
+    title: "Contact Enterprise Architecture Team",
+    description: "Schedule a technical brief with VRPI Principal Systems Architects. Guaranteed SLA response within 2 business hours under mutual NDA.",
+  });
+
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
@@ -150,6 +157,7 @@ export default function ContactPage({ onNavigateHome }: { onNavigateHome?: () =>
     setIsSubmitted(true);
 
     try {
+      trackEvent("contact_brief_submitted", "LeadGen", data.projectType);
       confetti({
         particleCount: 75,
         spread: 80,
@@ -386,51 +394,91 @@ export default function ContactPage({ onNavigateHome }: { onNavigateHome?: () =>
                   <p className="text-sm text-slate-600 max-w-md leading-relaxed mb-6">
                     Your brief has been assigned to a Principal Systems Architect. We will review your project requirements and reply to your work email within 2 business hours.
                   </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsSubmitted(false);
-                      reset();
-                    }}
-                    className="px-6 py-2.5 rounded-xl font-mono text-xs font-semibold uppercase tracking-wider bg-slate-950 hover:bg-slate-800 text-white transition-all cursor-pointer shadow-sm"
-                  >
-                    Submit Another Brief
-                  </button>
+                  <div className="flex flex-col sm:flex-row items-center gap-3">
+                    <a
+                      href="#/thank-you"
+                      className="px-6 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#FA6400] to-[#E60038] text-white hover:brightness-110 transition-all cursor-pointer shadow-md"
+                    >
+                      View Formal Confirmation
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsSubmitted(false);
+                        reset();
+                      }}
+                      className="px-6 py-2.5 rounded-xl font-mono text-xs font-semibold uppercase tracking-wider bg-slate-100 hover:bg-slate-200 text-slate-800 transition-all cursor-pointer border border-slate-200"
+                    >
+                      Submit Another Brief
+                    </button>
+                  </div>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
+                  {/* Validation Error Summary Banner */}
+                  {Object.keys(errors).length > 0 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 flex items-start gap-2.5 text-rose-800 text-xs font-mono"
+                      role="alert"
+                    >
+                      <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                      <div>
+                        <strong className="block font-bold">Please resolve the marked requirements:</strong>
+                        <span className="text-[11px] text-rose-700">Check highlighted fields below with specific format or length criteria.</span>
+                      </div>
+                    </motion.div>
+                  )}
+
                   {/* Name and Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-mono uppercase text-slate-600 mb-1.5 font-semibold">
+                      <label htmlFor="fullName" className="block text-xs font-mono uppercase text-slate-600 mb-1.5 font-semibold">
                         Full Name *
                       </label>
                       <input
+                        id="fullName"
                         {...register("fullName")}
                         type="text"
                         placeholder="Satya Nadella"
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#FA6400] focus:bg-white focus:outline-none transition-colors"
+                        aria-invalid={!!errors.fullName}
+                        aria-describedby={errors.fullName ? "fullName-error" : undefined}
+                        className={`w-full px-4 py-2.5 rounded-xl text-sm transition-colors focus:outline-none ${
+                          errors.fullName
+                            ? "bg-rose-50/50 border border-rose-300 text-slate-900 focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20"
+                            : "bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-[#FA6400] focus:bg-white"
+                        }`}
                       />
                       {errors.fullName && (
-                        <span className="text-[11px] text-rose-500 mt-1 block">
-                          {errors.fullName.message}
+                        <span id="fullName-error" className="text-[11px] text-rose-600 mt-1.5 flex items-center gap-1 font-medium" role="alert">
+                          <AlertCircle className="w-3.5 h-3.5 shrink-0 text-rose-500" />
+                          <span>{errors.fullName.message}</span>
                         </span>
                       )}
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono uppercase text-slate-600 mb-1.5 font-semibold">
+                      <label htmlFor="workEmail" className="block text-xs font-mono uppercase text-slate-600 mb-1.5 font-semibold">
                         Corporate Work Email *
                       </label>
                       <input
+                        id="workEmail"
                         {...register("workEmail")}
                         type="email"
                         placeholder="satya@microsoft.com"
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#FA6400] focus:bg-white focus:outline-none transition-colors"
+                        aria-invalid={!!errors.workEmail}
+                        aria-describedby={errors.workEmail ? "workEmail-error" : undefined}
+                        className={`w-full px-4 py-2.5 rounded-xl text-sm transition-colors focus:outline-none ${
+                          errors.workEmail
+                            ? "bg-rose-50/50 border border-rose-300 text-slate-900 focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20"
+                            : "bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-[#FA6400] focus:bg-white"
+                        }`}
                       />
                       {errors.workEmail && (
-                        <span className="text-[11px] text-rose-500 mt-1 block">
-                          {errors.workEmail.message}
+                        <span id="workEmail-error" className="text-[11px] text-rose-600 mt-1.5 flex items-center gap-1 font-medium" role="alert">
+                          <AlertCircle className="w-3.5 h-3.5 shrink-0 text-rose-500" />
+                          <span>{errors.workEmail.message}</span>
                         </span>
                       )}
                     </div>
@@ -438,18 +486,26 @@ export default function ContactPage({ onNavigateHome }: { onNavigateHome?: () =>
 
                   {/* Organization */}
                   <div>
-                    <label className="block text-xs font-mono uppercase text-slate-600 mb-1.5 font-semibold">
+                    <label htmlFor="organization" className="block text-xs font-mono uppercase text-slate-600 mb-1.5 font-semibold">
                       Organization / Company *
                     </label>
                     <input
+                      id="organization"
                       {...register("organization")}
                       type="text"
                       placeholder="Microsoft / Acme Capital Corp"
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#FA6400] focus:bg-white focus:outline-none transition-colors"
+                      aria-invalid={!!errors.organization}
+                      aria-describedby={errors.organization ? "organization-error" : undefined}
+                      className={`w-full px-4 py-2.5 rounded-xl text-sm transition-colors focus:outline-none ${
+                        errors.organization
+                          ? "bg-rose-50/50 border border-rose-300 text-slate-900 focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20"
+                          : "bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-[#FA6400] focus:bg-white"
+                      }`}
                     />
                     {errors.organization && (
-                      <span className="text-[11px] text-rose-500 mt-1 block">
-                        {errors.organization.message}
+                      <span id="organization-error" className="text-[11px] text-rose-600 mt-1.5 flex items-center gap-1 font-medium" role="alert">
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0 text-rose-500" />
+                        <span>{errors.organization.message}</span>
                       </span>
                     )}
                   </div>
@@ -525,30 +581,59 @@ export default function ContactPage({ onNavigateHome }: { onNavigateHome?: () =>
 
                   {/* Message Scope */}
                   <div>
-                    <label className="block text-xs font-mono uppercase text-slate-600 mb-1.5 font-semibold">
+                    <label htmlFor="message" className="block text-xs font-mono uppercase text-slate-600 mb-1.5 font-semibold">
                       Technical Scope &amp; Architecture Goals *
                     </label>
                     <textarea
+                      id="message"
                       {...register("message")}
                       rows={4}
                       placeholder="Outline your systems requirements, current bottlenecks, target throughput, or delivery timeline..."
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#FA6400] focus:bg-white focus:outline-none transition-colors leading-relaxed"
+                      aria-invalid={!!errors.message}
+                      aria-describedby={errors.message ? "message-error" : undefined}
+                      className={`w-full px-4 py-2.5 rounded-xl text-sm transition-colors focus:outline-none leading-relaxed ${
+                        errors.message
+                          ? "bg-rose-50/50 border border-rose-300 text-slate-900 focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20"
+                          : "bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400 focus:border-[#FA6400] focus:bg-white"
+                      }`}
                     />
                     {errors.message && (
-                      <span className="text-[11px] text-rose-500 mt-1 block">
-                        {errors.message.message}
+                      <span id="message-error" className="text-[11px] text-rose-600 mt-1.5 flex items-center gap-1 font-medium" role="alert">
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0 text-rose-500" />
+                        <span>{errors.message.message}</span>
                       </span>
                     )}
+                  </div>
+
+                  {/* Privacy Consent Clause */}
+                  <div className="text-[11px] text-slate-500 flex items-center gap-2 pt-1">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>
+                      By submitting, you agree to our{" "}
+                      <a href="#/privacy" className="text-slate-700 underline hover:text-[#FA6400]">
+                        Privacy Policy
+                      </a>{" "}
+                      and bilateral enterprise NDA confidentiality safeguards.
+                    </span>
                   </div>
 
                   {/* Submit CTA Button */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-r from-[#FA6400] via-[#FF4500] to-[#E60038] hover:brightness-105 active:scale-[0.99] transition-all shadow-[0_8px_25px_rgba(250,100,0,0.3)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    className="w-full py-3.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-r from-[#FA6400] via-[#FF4500] to-[#E60038] hover:brightness-105 active:scale-[0.99] transition-all shadow-[0_8px_25px_rgba(250,100,0,0.3)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
                   >
-                    <span>{isSubmitting ? "Encrypting & Dispatching..." : "Submit Technical Brief"}</span>
-                    <ArrowRight className="w-4 h-4" />
+                    {isSubmitting ? (
+                      <>
+                        <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span>Encrypting &amp; Dispatching...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Submit Technical Brief</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
 
                   <p className="text-[10px] font-mono text-center text-slate-500">

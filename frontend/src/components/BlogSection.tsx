@@ -179,7 +179,6 @@ const CATEGORIES = [
 
 export default function BlogSection() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All Publications");
-  const [readingPost, setReadingPost] = useState<BlogPost | null>(null);
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -257,20 +256,24 @@ export default function BlogSection() {
         {/* FEATURED FLAGSHIP ARTICLE (Bento Top)                        */}
         {/* ============================================================ */}
         {featuredPost && (
-          <motion.article
+          <motion.a
+            href={`#/blog/${featuredPost.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
             initial={prefersReducedMotion ? false : { opacity: 0, y: 25 }}
             whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            onClick={() => setReadingPost(featuredPost)}
-            className="group relative rounded-3xl overflow-hidden border border-white/[0.12] bg-[#0c1017] hover:border-white/30 transition-all duration-500 shadow-2xl mb-8 cursor-pointer"
+            className="group relative block rounded-3xl overflow-hidden border border-white/[0.12] bg-[#0c1017] hover:border-white/30 transition-all duration-500 shadow-2xl mb-8 cursor-pointer no-underline text-inherit"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[380px] lg:min-h-[420px]">
               {/* Left Column: Visual Media with atmospheric glow */}
               <div className="lg:col-span-5 relative overflow-hidden min-h-[240px] lg:min-h-full">
                 <img
                   src={featuredPost.image}
-                  alt={featuredPost.title}
+                  alt={`Architecture visualization for ${featuredPost.title}`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[0.85] group-hover:brightness-100"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
@@ -324,32 +327,21 @@ export default function BlogSection() {
                   </div>
                 </div>
 
-                {/* Author Card & Read CTA */}
+                {/* Publication Meta & Read CTA */}
                 <div className="flex items-center justify-between pt-5 border-t border-white/10">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={featuredPost.author.avatar}
-                      alt={featuredPost.author.name}
-                      className="w-10 h-10 rounded-full object-cover border border-white/20"
-                    />
-                    <div>
-                      <span className="block text-sm font-semibold text-white">
-                        {featuredPost.author.name}
-                      </span>
-                      <span className="block text-xs font-mono text-slate-400">
-                        {featuredPost.author.role}
-                      </span>
-                    </div>
+                  <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                    <span className="text-white font-medium">VRPI Engineering Publication</span>
                   </div>
 
                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.08] group-hover:bg-white text-white group-hover:text-black text-xs font-mono font-semibold tracking-wider transition-all duration-300">
-                    <span>READ BRIEF</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    <span>OPEN IN NEW PAGE</span>
+                    <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </div>
                 </div>
               </div>
             </div>
-          </motion.article>
+          </motion.a>
         )}
 
         {/* ============================================================ */}
@@ -357,8 +349,11 @@ export default function BlogSection() {
         {/* ============================================================ */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {gridPosts.map((post, idx) => (
-            <motion.article
+            <motion.a
               key={post.id}
+              href={`#/blog/${post.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
               whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
@@ -367,14 +362,15 @@ export default function BlogSection() {
                 delay: idx * 0.1,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              onClick={() => setReadingPost(post)}
-              className="group flex flex-col justify-between rounded-3xl overflow-hidden border border-white/[0.08] bg-[#0c1017]/80 hover:bg-[#10141f] hover:border-white/25 transition-all duration-300 shadow-lg cursor-pointer"
+              className="group flex flex-col justify-between rounded-3xl overflow-hidden border border-white/[0.08] bg-[#0c1017]/80 hover:bg-[#10141f] hover:border-white/25 transition-all duration-300 shadow-lg cursor-pointer block no-underline text-inherit"
             >
               {/* Card Image */}
               <div className="relative aspect-[16/9] overflow-hidden">
                 <img
                   src={post.image}
-                  alt={post.title}
+                  alt={`Technical publication graphic for ${post.title}`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 brightness-90 group-hover:brightness-100"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0c1017] via-transparent to-transparent" />
@@ -409,23 +405,17 @@ export default function BlogSection() {
 
                 {/* Footer */}
                 <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <img
-                      src={post.author.avatar}
-                      alt={post.author.name}
-                      className="w-7 h-7 rounded-full object-cover border border-white/20"
-                    />
-                    <span className="text-xs font-medium text-slate-300">
-                      {post.author.name}
-                    </span>
-                  </div>
+                  <span className="text-xs font-mono text-slate-400">
+                    VRPI Systems Research
+                  </span>
 
-                  <div className="w-8 h-8 rounded-full bg-white/[0.05] group-hover:bg-white text-white group-hover:text-black flex items-center justify-center transition-all">
-                    <ArrowRight className="w-3.5 h-3.5" />
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.05] group-hover:bg-white text-white group-hover:text-black transition-all text-xs font-mono">
+                    <span>Open</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
                   </div>
                 </div>
               </div>
-            </motion.article>
+            </motion.a>
           ))}
         </div>
 
@@ -478,142 +468,6 @@ export default function BlogSection() {
           </div>
         </motion.div>
       </div>
-
-      {/* ============================================================ */}
-      {/* INTERACTIVE FULL-ARTICLE READER MODAL                        */}
-      {/* ============================================================ */}
-      <AnimatePresence>
-        {readingPost && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.94, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.94, y: 20 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="relative w-full max-w-3xl bg-[#0b0e14] border border-white/20 rounded-3xl p-6 sm:p-10 shadow-2xl overflow-hidden my-auto max-h-[90vh] overflow-y-auto text-slate-200"
-              role="dialog"
-              aria-modal="true"
-            >
-              {/* Close Button */}
-              <button
-                type="button"
-                onClick={() => setReadingPost(null)}
-                className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-white/70 hover:text-white transition-all cursor-pointer z-20"
-                aria-label="Close article modal"
-              >
-                <X className="w-4 h-4" />
-              </button>
-
-              {/* Category & Meta */}
-              <div className="flex items-center gap-3 text-xs font-mono text-slate-400 mb-3">
-                <span className="px-2.5 py-1 rounded-md bg-[#FA6400]/15 border border-[#FA6400]/30 text-[#FA6400] font-semibold">
-                  {readingPost.category}
-                </span>
-                <span>•</span>
-                <span>{readingPost.readTime}</span>
-                <span>•</span>
-                <span>{readingPost.publishDate}</span>
-              </div>
-
-              {/* Title */}
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-['Space_Grotesk'] text-white leading-tight mb-4">
-                {readingPost.title}
-              </h2>
-
-              {/* Author Strip */}
-              <div className="flex items-center gap-3.5 pb-6 mb-6 border-b border-white/10">
-                <img
-                  src={readingPost.author.avatar}
-                  alt={readingPost.author.name}
-                  className="w-12 h-12 rounded-full object-cover border border-white/25"
-                />
-                <div>
-                  <div className="text-sm font-bold text-white">
-                    {readingPost.author.name}
-                  </div>
-                  <div className="text-xs font-mono text-slate-400">
-                    {readingPost.author.role}
-                  </div>
-                </div>
-              </div>
-
-              {/* Article Hero Media */}
-              <div className="relative rounded-2xl overflow-hidden aspect-[16/8] mb-6 border border-white/10">
-                <img
-                  src={readingPost.image}
-                  alt={readingPost.title}
-                  className="w-full h-full object-cover"
-                />
-                {readingPost.metricsHighlight && (
-                  <div className="absolute bottom-3 left-3 px-3 py-1 rounded-lg bg-black/80 backdrop-blur-md border border-white/20 text-xs font-mono text-emerald-400">
-                    {readingPost.metricsHighlight}
-                  </div>
-                )}
-              </div>
-
-              {/* Main Narrative */}
-              <div className="space-y-5 text-sm sm:text-base leading-relaxed text-slate-300">
-                <p className="text-base sm:text-lg text-white font-medium leading-relaxed">
-                  {readingPost.content.lead}
-                </p>
-
-                {/* Key Architectural Takeaways Box */}
-                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 space-y-3">
-                  <span className="font-mono text-xs uppercase tracking-wider text-amber-400 font-bold block">
-                    KEY ARCHITECTURAL TAKEAWAYS
-                  </span>
-                  <ul className="space-y-2.5">
-                    {readingPost.content.keyTakeaways.map((takeaway, tIdx) => (
-                      <li key={tIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                        <span>{takeaway}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="p-4 rounded-xl bg-slate-900/90 border border-cyan-500/30 text-xs font-mono text-cyan-300">
-                  <span className="text-slate-400 block mb-1">SYSTEM TOPOLOGY SPECIFICATION:</span>
-                  {readingPost.content.architectureNote}
-                </div>
-
-                <p className="pt-2">{readingPost.content.conclusion}</p>
-              </div>
-
-              {/* Modal Actions */}
-              <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="flex flex-wrap gap-2">
-                  {readingPost.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="px-2 py-0.5 rounded text-[11px] font-mono bg-white/[0.05] text-slate-400 border border-white/10"
-                    >
-                      #{t}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex items-center gap-3 w-full sm:w-auto">
-                  <a
-                    href="#contact"
-                    onClick={() => setReadingPost(null)}
-                    className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FA6400] to-[#E60038] text-white text-xs font-mono font-bold tracking-wider uppercase text-center cursor-pointer hover:brightness-110"
-                  >
-                    Consult Authors
-                  </a>
-                  <button
-                    type="button"
-                    onClick={() => setReadingPost(null)}
-                    className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-mono cursor-pointer"
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

@@ -299,9 +299,10 @@ export default function ITShowcase() {
                   <div className="relative aspect-[4/3] sm:aspect-[16/11] overflow-hidden bg-[#0A0E17]">
                     <img
                       src={currentItem.image}
-                      alt={currentItem.title}
+                      alt={`Visual showcase of ${currentItem.title}`}
                       className="w-full h-full object-cover object-center filter brightness-90 contrast-105 group-hover:scale-105 transition-transform duration-700"
                       loading="lazy"
+                      decoding="async"
                     />
 
                     {/* Gradient Overlay for Text Readability */}

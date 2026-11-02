@@ -379,7 +379,9 @@ export default function Services({ onViewFullPage }: { onViewFullPage?: () => vo
                 <div className="absolute inset-0 z-0 overflow-hidden">
                   <img
                     src={service.image}
-                    alt=""
+                    alt={`Engineering showcase illustration for ${service.title}`}
+                    loading="lazy"
+                    decoding="async"
                     className={`w-full h-full object-cover transition-all duration-700 ease-out ${
                       isExpanded
                         ? "scale-100 brightness-[0.88] contrast-[1.05]"

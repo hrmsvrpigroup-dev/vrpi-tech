@@ -110,6 +110,7 @@ export default function AboutSection({ onViewFullPage }: { onViewFullPage?: () =
                 alt="VR PI Tech Solutions Executive Leadership Team"
                 className="w-full aspect-[4/3] sm:aspect-[1.15/1] object-cover object-top transition-transform duration-700 group-hover:scale-102"
                 loading="lazy"
+                decoding="async"
               />
 
               {/* Gradient Bottom Overlay */}

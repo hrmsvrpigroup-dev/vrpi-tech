@@ -1,0 +1,21 @@
+{
+  "name": "VRPI TECH SOLUTIONS",
+  "short_name": "VRPI Tech",
+  "description": "Full-stack digital engineering firm building intelligent digital products, scalable software platforms, and cloud infrastructure.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080B10",
+  "theme_color": "#080B10",
+  "icons": [
+    {
+      "src": "/vrpi-logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/vrpi-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

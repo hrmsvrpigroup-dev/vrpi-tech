@@ -1,6 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+node_modules/
 /node_modules
 /.pnp
 .pnp.*
@@ -19,6 +20,7 @@
 
 # production
 /build
+dist/
 /dist
 
 # misc
@@ -48,5 +50,6 @@ __pycache__/
 
 # root media copies (all assets are located in /public)
 /1701416456450*
+frontend/public/1701416456450*
 /Humanoid_robot_rotates_into_pose_20260926125030.mp4
 /Remove_text_and_outline_from_2K_20261013113832.jpg

@@ -81,7 +81,9 @@ export default function Hero() {
       <div className="absolute inset-0 z-0 overflow-hidden select-none pointer-events-none">
         <img
           src="/hero-image.jpg"
-          alt="Serene architectural pavilion nestled in misty lush twilight forest"
+          alt="Serene architectural pavilion nestled in misty lush twilight forest representing VRPI sanctuary engineering"
+          loading="eager"
+          decoding="async"
           className="w-full h-full object-cover object-center filter brightness-[1.03] contrast-[1.02]"
         />
 
@@ -190,20 +192,28 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Call to Actions (Buttons) */}
+          {/* Call to Actions (Above the Fold) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.5 }}
-            className="flex flex-wrap items-center gap-4 sm:gap-6"
+            className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1"
           >
             {/* Primary Action Button */}
             <a
               href="#services"
-              className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-xs sm:text-base font-bold text-white bg-gradient-to-r from-[#FF3366] via-[#FF4D6D] to-[#FF7555] shadow-[0_0_35px_rgba(255,51,102,0.55)] hover:shadow-[0_0_45px_rgba(255,51,102,0.8)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] group"
+              className="inline-flex items-center gap-2 px-5 sm:px-7 py-3 sm:py-3.5 rounded-full text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-[#FF3366] via-[#FF4D6D] to-[#FF7555] shadow-[0_0_30px_rgba(255,51,102,0.5)] hover:shadow-[0_0_45px_rgba(255,51,102,0.8)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] group"
             >
               <span>Explore Our Solutions</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+
+            {/* Secondary Direct Contact CTA */}
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 sm:py-3.5 rounded-full text-xs sm:text-sm font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <span>Schedule Architecture Briefing</span>
             </a>
           </motion.div>
         </div>
@@ -225,7 +235,9 @@ export default function Hero() {
               <motion.img
                 key={currentSlide.id}
                 src={currentSlide.image}
-                alt={currentSlide.title}
+                alt={`IT showcase for ${currentSlide.title}`}
+                loading="eager"
+                decoding="async"
                 initial={{ opacity: 0, scale: 1.06 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
