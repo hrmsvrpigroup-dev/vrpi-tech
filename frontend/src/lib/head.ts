@@ -94,3 +94,4 @@ export function usePageMetadata(options: PageMetaOptions) {
     updatePageMetadata(options);
   }, [options.title, options.description, options.ogImage, options.canonical]);
 }
+

@@ -279,8 +279,6 @@ export default function ServicesPage({ onNavigateHome }: { onNavigateHome?: () =
   const [selectedCategory, setSelectedCategory] = useState<string>("All Disciplines");
   const [activeModalService, setActiveModalService] = useState<ServiceDetail | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeDiscipline, setActiveDiscipline] = useState<string>("mobile-applications");
-  const [showScrollSpy, setShowScrollSpy] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
   // Scroll reading/progress bar
@@ -296,15 +294,6 @@ export default function ServicesPage({ onNavigateHome }: { onNavigateHome?: () =
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  // Track scroll position to reveal bottom quick-jump discipline pill
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollSpy(window.scrollY > 380);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const filteredServices = DETAILED_SERVICES.filter((svc) => {
     const matchesCategory =
       selectedCategory === "All Disciplines" || svc.category === selectedCategory;
@@ -315,34 +304,6 @@ export default function ServicesPage({ onNavigateHome }: { onNavigateHome?: () =
       svc.techStack.some((tech) => tech.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
-
-  // Active discipline scroll observer
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveDiscipline(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: "-15% 0px -40% 0px", threshold: 0.15 }
-    );
-
-    DETAILED_SERVICES.forEach((svc) => {
-      const el = document.getElementById(svc.id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, [filteredServices]);
-
-  const scrollToService = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  };
 
   return (
     <div className="w-full bg-white text-slate-900 min-h-screen pt-28 sm:pt-32 pb-16 font-sans relative">
@@ -780,41 +741,6 @@ export default function ServicesPage({ onNavigateHome }: { onNavigateHome?: () =
           </div>
         </motion.section>
       </div>
-
-      {/* ========================================================= */}
-      {/* FLOATING QUICK SCROLL-SPY DISCIPLINE CAPSULE              */}
-      {/* ========================================================= */}
-      <AnimatePresence>
-        {showScrollSpy && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 30 }}
-            transition={{ duration: 0.3 }}
-            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 max-w-[94vw] overflow-x-auto no-scrollbar pointer-events-auto"
-          >
-            <div className="flex items-center gap-1.5 p-1.5 rounded-full bg-slate-950/90 backdrop-blur-2xl border border-white/20 shadow-[0_15px_35px_rgba(0,0,0,0.5)] text-xs font-mono">
-              {DETAILED_SERVICES.map((s) => {
-                const isActive = activeDiscipline === s.id;
-                return (
-                  <button
-                    key={s.id}
-                    onClick={() => scrollToService(s.id)}
-                    className={`px-3 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap cursor-pointer flex items-center gap-1.5 text-[11px] sm:text-xs ${
-                      isActive
-                        ? "bg-gradient-to-r from-[#FA6400] to-[#E60038] text-white font-bold shadow-md scale-105"
-                        : "text-slate-300 hover:text-white hover:bg-white/10"
-                    }`}
-                  >
-                    <span>{s.number}</span>
-                    <span className="hidden sm:inline">{s.title.split(" ")[0]}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* ========================================================= */}
       {/* INTERACTIVE FULL SPECIFICATION MODAL                      */}

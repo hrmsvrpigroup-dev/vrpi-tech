@@ -80,3 +80,4 @@ export default function StickyMobileCTA({ currentPage, onNavigateContact }: Stic
     </aside>
   );
 }
+

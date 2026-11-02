@@ -171,3 +171,4 @@ export default function ThankYouPage({ onNavigateHome, onNavigateBlog }: ThankYo
     </div>
   );
 }
+

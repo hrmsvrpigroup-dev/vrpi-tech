@@ -133,3 +133,4 @@ export default function TermsPage({ onNavigateHome }: TermsPageProps) {
     </div>
   );
 }
+

@@ -109,3 +109,4 @@ export function trackEvent(
     console.debug(`[Telemetry:Event] ${category} > ${action}`, { label, value });
   }
 }
+
