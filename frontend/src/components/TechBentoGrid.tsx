@@ -172,10 +172,10 @@ export default function TechBentoGrid() {
               reducedMotion
                 ? {}
                 : {
-                    y: -5,
-                    scale: 1.01,
-                    transition: { type: "spring", stiffness: 350, damping: 25 },
-                  }
+                  y: -5,
+                  scale: 1.01,
+                  transition: { type: "spring", stiffness: 350, damping: 25 },
+                }
             }
             className="col-span-12 lg:col-span-4 lg:row-span-2 rounded-[20px] sm:rounded-[28px] bg-[#00C265] p-4 sm:p-7 lg:p-8 flex flex-col justify-between shadow-sm relative overflow-hidden group transition-shadow duration-300 hover:shadow-[0_20px_40px_-10px_rgba(0,194,101,0.4)]"
           >
@@ -258,10 +258,10 @@ export default function TechBentoGrid() {
               reducedMotion
                 ? {}
                 : {
-                    y: -5,
-                    scale: 1.012,
-                    transition: { type: "spring", stiffness: 350, damping: 25 },
-                  }
+                  y: -5,
+                  scale: 1.012,
+                  transition: { type: "spring", stiffness: 350, damping: 25 },
+                }
             }
             whileTap={reducedMotion ? {} : { scale: 0.99 }}
             onClick={() => setSelectedCard(BENTO_CARDS[0])}
@@ -292,10 +292,10 @@ export default function TechBentoGrid() {
               reducedMotion
                 ? {}
                 : {
-                    y: -5,
-                    scale: 1.012,
-                    transition: { type: "spring", stiffness: 350, damping: 25 },
-                  }
+                  y: -5,
+                  scale: 1.012,
+                  transition: { type: "spring", stiffness: 350, damping: 25 },
+                }
             }
             whileTap={reducedMotion ? {} : { scale: 0.99 }}
             onClick={() => setSelectedCard(BENTO_CARDS[1])}
@@ -326,10 +326,10 @@ export default function TechBentoGrid() {
               reducedMotion
                 ? {}
                 : {
-                    y: -5,
-                    scale: 1.012,
-                    transition: { type: "spring", stiffness: 350, damping: 25 },
-                  }
+                  y: -5,
+                  scale: 1.012,
+                  transition: { type: "spring", stiffness: 350, damping: 25 },
+                }
             }
             whileTap={reducedMotion ? {} : { scale: 0.99 }}
             onClick={() => setSelectedCard(BENTO_CARDS[2])}
@@ -360,10 +360,10 @@ export default function TechBentoGrid() {
               reducedMotion
                 ? {}
                 : {
-                    y: -5,
-                    scale: 1.012,
-                    transition: { type: "spring", stiffness: 350, damping: 25 },
-                  }
+                  y: -5,
+                  scale: 1.012,
+                  transition: { type: "spring", stiffness: 350, damping: 25 },
+                }
             }
             whileTap={reducedMotion ? {} : { scale: 0.99 }}
             onClick={() => setSelectedCard(BENTO_CARDS[3])}
@@ -394,10 +394,10 @@ export default function TechBentoGrid() {
               reducedMotion
                 ? {}
                 : {
-                    y: -5,
-                    scale: 1.012,
-                    transition: { type: "spring", stiffness: 350, damping: 25 },
-                  }
+                  y: -5,
+                  scale: 1.012,
+                  transition: { type: "spring", stiffness: 350, damping: 25 },
+                }
             }
             whileTap={reducedMotion ? {} : { scale: 0.99 }}
             onClick={() => setSelectedCard(BENTO_CARDS[4])}
@@ -428,10 +428,10 @@ export default function TechBentoGrid() {
               reducedMotion
                 ? {}
                 : {
-                    y: -5,
-                    scale: 1.01,
-                    transition: { type: "spring", stiffness: 350, damping: 25 },
-                  }
+                  y: -5,
+                  scale: 1.01,
+                  transition: { type: "spring", stiffness: 350, damping: 25 },
+                }
             }
             whileTap={reducedMotion ? {} : { scale: 0.99 }}
             onClick={() => setSelectedCard(BENTO_CARDS[5])}

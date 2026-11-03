@@ -240,8 +240,8 @@ export default function Footer() {
               <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between text-[11px] font-mono">
                 <div className="flex items-center gap-1.5 text-slate-300">
                   <Mail className="w-3 h-3 text-[#FFA040]" />
-                  <a href="mailto:info@vrpigroup.co.in" className="hover:text-white transition-colors">
-                    info@vrpigroup.co.in
+                  <a href="mailto:info@vrpitechsolutions.com" className="hover:text-white transition-colors">
+                    info@vrpitechsolutions.com
                   </a>
                 </div>
                 <span className="text-[10px] text-emerald-400">Response &lt; 24h</span>
