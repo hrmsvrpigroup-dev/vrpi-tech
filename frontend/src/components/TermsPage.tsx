@@ -47,7 +47,7 @@ export default function TermsPage({ onNavigateHome }: TermsPageProps) {
             Terms &amp; Conditions of Engagement
           </h1>
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-3xl">
-            These Terms and Conditions constitute a legally binding agreement between VRPI TECH SOLUTIONS PRIVATE LIMITED (&quot;VRPI&quot;) and the commissioning client entity (&quot;Client&quot;) governing the provision of software engineering, artificial intelligence, cloud architecture, and digital operations services.
+            These Terms and Conditions constitute a legally binding agreement between VR PI TECH SOLUTIONS LLP (&quot;VRPI&quot;) and the commissioning client entity (&quot;Client&quot;) governing the provision of software engineering, artificial intelligence, cloud architecture, and digital operations services.
           </p>
         </div>
 
@@ -122,7 +122,7 @@ export default function TermsPage({ onNavigateHome }: TermsPageProps) {
               Corporate Legal Entity Details
             </h2>
             <div className="space-y-1.5 font-mono text-xs text-slate-300">
-              <div><strong>Company Name:</strong> VRPI TECH SOLUTIONS PRIVATE LIMITED</div>
+              <div><strong>Company Name:</strong> VR PI TECH SOLUTIONS LLP</div>
               <div><strong>Registered Office:</strong> Door No: 2-27-163, Gandhi Nagar, Near Jammichettu, Wanaparthy, Telangana 509103, India</div>
               <div><strong>Technology Campus:</strong> 8th Floor (B-Block), Meenakshi Tech Park, Phase-2, Gachibowli, Hyderabad, Telangana 500032, India</div>
               <div><strong>Legal Counsel &amp; Contracts Desk:</strong> <a href="mailto:info@vrpigroup.co.in" className="text-[#FFA040] hover:underline">info@vrpigroup.co.in</a></div>

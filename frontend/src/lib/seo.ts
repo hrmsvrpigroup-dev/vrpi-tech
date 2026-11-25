@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "VRPI TECH SOLUTIONS",
-  legalName: "VRPI Tech Solutions Private Limited",
+  legalName: "VR PI TECH SOLUTIONS LLP",
   description:
     "We turn complexity into working software. Full-stack digital engineering partner building intelligent digital products, scalable software platforms, and cloud infrastructure.",
   url: "https://vrpisc.com",

@@ -47,7 +47,7 @@ export default function PrivacyPolicyPage({ onNavigateHome }: PrivacyPolicyPageP
             Privacy Policy &amp; Data Protection
           </h1>
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-3xl">
-            VRPI TECH SOLUTIONS PRIVATE LIMITED (&quot;VRPI&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to upholding strict confidentiality, data privacy, and intellectual property rights. This statement articulates how we collect, process, and safeguard information submitted through our web portal and technical consultations.
+            VR PI TECH SOLUTIONS LLP (&quot;VRPI&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to upholding strict confidentiality, data privacy, and intellectual property rights. This statement articulates how we collect, process, and safeguard information submitted through our web portal and technical consultations.
           </p>
         </div>
 
@@ -129,7 +129,7 @@ export default function PrivacyPolicyPage({ onNavigateHome }: PrivacyPolicyPageP
               To exercise your rights to review, rectify, or purge personal data or technical briefs held in our registry, contact our Data Protection Officer:
             </p>
             <div className="space-y-1.5 font-mono text-xs text-slate-300">
-              <div><strong>Entity:</strong> VRPI TECH SOLUTIONS PRIVATE LIMITED</div>
+              <div><strong>Entity:</strong> VR PI TECH SOLUTIONS LLP</div>
               <div><strong>Registered Office:</strong> Door No: 2-27-163, Gandhi Nagar, Near Jammichettu, Wanaparthy, Telangana 509103, India</div>
               <div><strong>Tech Campus:</strong> 8th Floor (B-Block), Meenakshi Tech Park, Phase-2, Gachibowli, Hyderabad, Telangana 500032, India</div>
               <div><strong>Official Email:</strong> <a href="mailto:info@vrpigroup.co.in" className="text-[#FFA040] hover:underline">info@vrpigroup.co.in</a></div>

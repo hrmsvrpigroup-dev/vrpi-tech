@@ -47,10 +47,10 @@ export default function Footer() {
                 />
                 <div className="flex flex-col">
                   <span className="font-display font-bold text-sm tracking-tight text-white">
-                    VRPI TECH SOLUTIONS
+                    VR PI TECH SOLUTIONS
                   </span>
                   <span className="text-[10px] uppercase font-mono tracking-wider text-rose-400 font-semibold">
-                    PRIVATE LIMITED
+                    LLP
                   </span>
                 </div>
               </a>
@@ -253,7 +253,7 @@ export default function Footer() {
         {/* Bottom Bar: Telemetry Beacon & Copyright */}
         <div className="pt-4 flex flex-col md:flex-row items-center justify-between gap-3 text-[11px] font-mono text-slate-400">
           <div className="flex flex-wrap items-center gap-2">
-            <span>© 2026 VRPI TECH SOLUTIONS PRIVATE LIMITED.</span>
+            <span>© 2026 VR PI TECH SOLUTIONS LLP.</span>
             <span className="hidden sm:inline text-slate-500">·</span>
             <span className="text-slate-400">ALL RIGHTS RESERVED.</span>
             <span className="hidden sm:inline text-slate-500">·</span>
